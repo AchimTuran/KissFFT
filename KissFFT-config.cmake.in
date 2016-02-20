@@ -1,0 +1,30 @@
+# - asplib config mode
+#
+# Defines the following variables:
+#  KissFFT_FOUND        - true
+#  KissFFT_VERSION      - version of the KissFFT library found, e.g. 0.2
+#  KissFFT_INCLUDE_DIRS - header directories with which to compile
+#  KissFFT_LINKER_FLAGS - flags that must be passed to the linker
+#  KissFFT_LIBRARIES    - names of the libraries with which to link
+#  KissFFT_LIBRARY_DIRS - directories in which the libraries are situated
+
+# propagate these properties from one build system to the other
+set(KissFFT_VERSION "@KissFFT_VERSION_MAJOR@.@KissFFT_VERSION_MINOR@")
+set(KissFFT_INCLUDE_DIRS @KissFFT_INCLUDE_DIRS@ @CMAKE_INSTALL_PREFIX@/include)
+set(KissFFT_LIBRARY_DIRS "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
+set(KissFFT_LINKER_FLAGS "@KissFFT_LINKER_FLAGS@")
+set(KissFFT_CONFIG_VARS "@KissFFT_CONFIG_VARS@")
+
+# libraries come from the build tree where this file was generated
+if(WIN32)
+  set(KissFFT_LIBRARY "@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@/KissFFT.lib")
+else(WIN32)
+  set(KissFFT_LIBRARY "-L@CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@ -lKissFFT")
+endif(WIN32)
+set(KissFFT_LIBRARIES ${KissFFT_LIBRARY} "@KissFFT_LIBRARIES@")
+mark_as_advanced (KissFFT_LIBRARY)
+
+# add the library as a target, so that other things in the project including
+# this file may depend on it and get rebuild if this library changes.
+add_library(KissFFT UNKNOWN IMPORTED)
+set_property(TARGET KissFFT PROPERTY IMPORTED_LOCATION "${KissFFT_LIBRARY}")
