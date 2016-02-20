@@ -1,6 +1,6 @@
 #### CI Testing
 * Tarvis-CI for OS X, iOS, Linux [![Build Status](https://travis-ci.org/AchimTuran/KissFFT.svg?branch=master)](https://travis-ci.org/AchimTuran/KissFFT)
-* AppVeyor for Windows [![Build status](https://ci.appveyor.com/api/projects/status/574mjwqsdm6gokb7?svg=true)](https://ci.appveyor.com/project/AchimTuran/kissfft)
+* AppVeyor for Windows [![Build status](https://ci.appveyor.com/api/projects/status/574mjwqsdm6gokb7/branch/master?svg=true)](https://ci.appveyor.com/project/AchimTuran/kissfft/branch/master)
 
 ##KISS FFT
 A mixed-radix Fast Fourier Transform based up on the principle, "Keep It Simple, Stupid."
