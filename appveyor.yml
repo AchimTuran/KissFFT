@@ -1,0 +1,50 @@
+version: BuildNr.{build}
+
+environment:
+  matrix:
+    # currently the debug version fail, because it doesn't find the .pdb file.
+    # Seems to be an error in Kodi binary add-on build system
+    #- GENERATOR: "Visual Studio 12 2013"
+      #CONFIG: Debug
+
+    - GENERATOR: "Visual Studio 12 2013"
+      CONFIG: Release
+
+init:
+# Configure the AppVeyor build version to ${branch-name}-${git-revision}-${timestamp}
+- ps: $commit = $env:appveyor_repo_commit.SubString(0,7)
+- ps: $timestamp = $env:appveyor_repo_commit_timestamp.SubString(0,10)
+- ps: Update-AppveyorBuild -Version ("{0}-{1}-{2}" -f $env:appveyor_repo_branch, $commit, $timestamp)
+
+# uncomment this to build only on specific branches
+#branches:
+    #only:
+#      - master
+
+# fetch repository as zip archive
+shallow_clone: true                 # default is "false"
+
+# example about how to install a newer cmake version
+#install:
+#  - ps: wget https://s3.amazonaws.com/biibinaries/thirdparty/cmake-3.0.2-win32-x86.zip -OutFile cmake.zip
+#  - cmd: echo "Unzipping cmake..."
+#  - cmd: 7z x cmake.zip -o"C:\Program Files (x86)\" -y > nul
+#  - cmd: set PATH=%PATH:CMake 2.8\bin=%;C:\Program Files (x86)\cmake-3.0.2-win32-x86\bin
+#  - cmd: cmake --version
+#  - cmd: del cmake.zip
+
+build_script:
+  - call "%VS120COMNTOOLS%..\..\VC\bin\vcvars32.bat"
+  - cd ..
+  - ren "%APPVEYOR_BUILD_FOLDER%" "KissFFT"
+  - mkdir package
+  - cd "KissFFT"
+  - mkdir build 
+  - cd build
+  - cmake .. -G "NMake Makefiles" -DCMAKE_INSTALL_PREFIX="./install"
+  - cmake --build . --target "KissFFT"
+  - cmake --build . --target "install"
+  
+  # use this commands for zip package creation, which can be used to upload it
+  #- cmake -G "NMake Makefiles" -DADDONS_TO_BUILD="%addon_id%" -DCMAKE_BUILD_TYPE="%CONFIG%" -DADDON_SRC_PREFIX="../.." -DCMAKE_INSTALL_PREFIX="../../xbmc/addons" -DPACKAGE_ZIP=1 -DPACKAGE_DIR="C:/projects/package" "../../xbmc/project/cmake/addons"
+  #- cmake --build "%cd%" --target "package-%addon_id%"
