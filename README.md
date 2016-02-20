@@ -1,5 +1,9 @@
-KISS FFT - A mixed-radix Fast Fourier Transform based up on the principle, 
-"Keep It Simple, Stupid."
+#### CI Testing
+* Tarvis-CI for OS X, iOS, Linux [![Build Status](https://travis-ci.org/AchimTuran/KissFFT.svg?branch=master)](https://travis-ci.org/AchimTuran/KissFFT)
+* AppVeyor for Windows [![Build status](https://ci.appveyor.com/api/projects/status/574mjwqsdm6gokb7?svg=true)](https://ci.appveyor.com/project/AchimTuran/kissfft)
+
+##KISS FFT
+A mixed-radix Fast Fourier Transform based up on the principle, "Keep It Simple, Stupid."
 
     There are many great fft libraries already around.  Kiss FFT is not trying
 to be better than any of them.  It only attempts to be a reasonably efficient, 
