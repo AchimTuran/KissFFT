@@ -6,7 +6,7 @@ enable_language(CXX)
 set(KissFFT_VERSION_MAJOR 1)
 set(KissFFT_VERSION_MINOR 30)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 include(UseMultiArch.cmake)
 #include(CheckAtomic.cmake)
@@ -45,13 +45,13 @@ write_basic_package_version_file(
   VERSION "${KissFFT_VERSION_MAJOR}.${KissFFT_VERSION_MINOR}"
   COMPATIBILITY ExactVersion)
 
-set(CMAKE_INSTALL_LIBDIR lib/KissFFT)
+#set(CMAKE_INSTALL_LIBDIR lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})  
 message(STATUS "CMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 install(FILES ${CMAKE_BINARY_DIR}/KissFFT-config-version.cmake
-        DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+        DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/KissFFT)
                                               
-install(TARGETS KissFFT DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+install(TARGETS KissFFT DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 set(KissFFT_LIBRARIES KissFFT)
 
@@ -65,7 +65,7 @@ IF(NOT WIN32)
   configure_pc_file(KissFFT   KissFFT.pc.in
                               KissFFT.pc
                               ${CMAKE_INSTALL_PREFIX}
-                              ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+                              ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/KissFFT
                               ${CMAKE_INSTALL_PREFIX}/include)
 
   install(FILES ${CMAKE_BINARY_DIR}/KissFFT.pc
@@ -76,4 +76,4 @@ ENDIF(NOT WIN32)
 configure_file (KissFFT-config.cmake.in
                 KissFFT-config.cmake @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/KissFFT-config.cmake
-        DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+        DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/KissFFT)
