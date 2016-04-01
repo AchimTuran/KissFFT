@@ -8,8 +8,8 @@ set(KissFFT_VERSION_MINOR 30)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-include(UseMultiArch.cmake)
-#include(CheckAtomic.cmake)
+include(cmake/UseMultiArch.cmake)
+#include(cmake/CheckAtomic.cmake)
 
 if(NOT WIN32)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
@@ -61,7 +61,7 @@ endforeach()
 
 IF(NOT WIN32)
   # Pkgconfig
-  include(PkgConfigHandler.cmake)
+  include(cmake/PkgConfigHandler.cmake)
   configure_pc_file(KissFFT   KissFFT.pc.in
                               KissFFT.pc
                               ${CMAKE_INSTALL_PREFIX}
