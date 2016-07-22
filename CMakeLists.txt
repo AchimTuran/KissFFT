@@ -69,15 +69,15 @@ set(CMAKE_INSTALL_CMAKECONFIGDIR
 
 # Generate and install basic KissFFT version file, which can be used by find_package(...).
 write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake COMPATIBILITY SameMajorVersion)
-install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
         DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR})
 
 # Generate and install KissFFT configure file that is used by find_package(...).
 # This file makes an find module obsolute, if your project
 # sets CMAKE_PREFIX_PATH to the install path of KissFFT.
-configure_package_config_file(cmake/${PROJECT_NAME}Config.cmake.in ${PROJECT_NAME}Config.cmake
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in ${PROJECT_NAME}Config.cmake
                               INSTALL_DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR})
-install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
         DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR})
 
 # Export all targets that are included in the namespace KissFFT.
