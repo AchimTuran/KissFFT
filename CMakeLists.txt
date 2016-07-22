@@ -44,7 +44,9 @@ add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 # - If both: PUBLIC
 target_include_directories(${PROJECT_NAME}
                            PRIVATE   ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/tools
-                           INTERFACE $<INSTALL_INTERFACE:include>
+                           INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+                                     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                                     $<INSTALL_INTERFACE:include>
                                      $<INSTALL_INTERFACE:include/KissFFT>)
 
 # Add this project to Visual Studio solution folder "contrib".
